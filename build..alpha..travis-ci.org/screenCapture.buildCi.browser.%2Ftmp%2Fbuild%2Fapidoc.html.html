@@ -56,6 +56,15 @@
 
         <li>
 
+            <a class="apidocElementLiA" href="#apidoc.element.partialify.partialify">
+            function <span class="apidocSignatureSpan"></span>partialify
+            <span class="apidocSignatureSpan">(file, opts)</span>
+            </a>
+
+        </li>
+
+        <li>
+
             <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">partialify.</span>custom</span>
 
         </li>
@@ -88,6 +97,37 @@
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.partialify" id="apidoc.module.partialify">module partialify</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.partialify.partialify" id="apidoc.element.partialify.partialify">
+        function <span class="apidocSignatureSpan"></span>partialify
+        <span class="apidocSignatureSpan">(file, opts)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function partialify(file, opts) {
+
+  if (!isValidFile(file, opts)) return through();
+
+  var buffer = "";
+
+  return through(function (chunk) {
+      buffer += chunk.toString();
+    },
+    function () {
+      if (buffer.indexOf('module.exports') === 0) {
+        this.queue(buffer); // prevent "double" transforms
+      } else {
+        this.queue(str2js(buffer));
+      }
+      this.queue(null);
+    });
+
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
 
 
 
